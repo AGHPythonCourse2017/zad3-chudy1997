@@ -10,7 +10,7 @@ Instruction:
     main.check('Some artist : Some song')* e.g. main.check('Leonard Cohen : Hallelujah')
   
 
-* Dont miss ':' - it's part of syntax!!!
+*Dont miss ':' - it's part of syntax!!!
 
 Zadanie 03
 ==========

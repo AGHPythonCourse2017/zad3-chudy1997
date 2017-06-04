@@ -70,7 +70,7 @@ def unicode(s, *_):
     return s
 
 
-def main(args):
+def fun(args):
     print(args)
     arg = ' '.join(args)
 
@@ -90,4 +90,4 @@ if __name__ == '__main__':
     parser.add_argument("sentence", nargs='+', type=lambda s: unicode(s, sys.getfilesystemencoding()),
                         help="Sentence to be checked for truth\nUsage: ./test Leonard Cohen : Hallelujah")
 
-    main(parser.parse_args().sentence)
+    fun(parser.parse_args().sentence)

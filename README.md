@@ -1,4 +1,4 @@
-Did you hear song , but you're not sure if you know who sung that? Check it out!
+You heard song , but you're not sure if you know who sung that? Check it out!
 ================================================================================
 Instruction:
   1. Install package song_singer as follows: 

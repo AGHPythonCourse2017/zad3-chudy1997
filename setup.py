@@ -11,7 +11,7 @@ setup(name='song_singer',
       packages=['song_singer'],
       install_requires=[
             'requests',
-            'BeautifulSoup',
+            'bs4',
             're'
             'sys',
             'argparse',

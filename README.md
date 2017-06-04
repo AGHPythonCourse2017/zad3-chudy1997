@@ -11,6 +11,7 @@ Instruction:
   
 
 * Dont miss ':' - it's part of syntax!!!
+
 ========================================
 
 Zadanie 03

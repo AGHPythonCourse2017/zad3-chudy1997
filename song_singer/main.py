@@ -70,8 +70,8 @@ def unicode(s, *_):
     return s
 
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser("test")
+def main():
+    parser = argparse.ArgumentParser("main")
     parser.add_argument("sentence", nargs='+', type=lambda s: unicode(s, sys.getfilesystemencoding()),
                         help="Sentence to be checked for truth\nUsage: ./test Leonard Cohen : Hallelujah")
     arg = ' '.join(parser.parse_args().sentence)
@@ -85,3 +85,7 @@ if __name__ == '__main__':
 
     print(auth_title[0] + (' is the author of ' if judge_truth(auth_title_list, auth_title[0])
                            else ' probably is not the author of ') + auth_title[1])
+
+
+if __name__ == '__main__':
+    main()

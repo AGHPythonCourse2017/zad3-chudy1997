@@ -9,7 +9,7 @@ def parse_inquiry(inq):
     res = str.split(inq, ':')
     if len(res) != 2:
         print("Wrong input\nUsage: main.check('Leonard Cohen : Hallelujah')", file=sys.stderr)
-        exit(-1)
+        return None
     for i in range(len(res)):
         res[i] = res[i].strip(' ')
 
@@ -30,7 +30,10 @@ def get_titles_from_addr(address):
     raw_html = BeautifulSoup(safe_get(address).text, 'html.parser'). \
         findAll('div').__str__()
 
-    tmp1 = re.search(r'Znalezione([\w\W]*?)30.(.*)', re.sub(re.compile('<.*?>'), '', raw_html)).group(0).split('\n')
+    tmp1 = re.search(r'Znalezione([\w\W]*?)30.(.*)', re.sub(re.compile('<.*?>'), '', raw_html))
+    if tmp1 is None:
+        return None
+    tmp1=tmp1.group(0).split('\n')
 
     tmp2 = []
     for t in tmp1[1:]:
@@ -54,7 +57,7 @@ def remove_wrong_titles(alist, title):
         if len(t) == 2 and t[1].lower() == title.lower():
             res.append(t)
 
-    return res
+    return None if len(res)==0 else res
 
 
 def judge_truth(alist, author):
@@ -71,11 +74,19 @@ def unicode(s, *_):
 
 def check(args):
     auth_title = parse_inquiry(args)
+    if auth_title==None:
+        exit(-1)
     addr = "http://www.tekstowo.pl/szukaj,wykonawca," + auth_title[0].replace(' ', '+') + ",tytul," + auth_title[
         1].replace(' ', '+') + ".html"
 
     auth_title_list = get_titles_from_addr(addr)
+    if auth_title_list is None:
+        print(auth_title[0] + ' probably doesn\'t sing ' + auth_title[1])
+        exit(0)
     auth_title_list = remove_wrong_titles(auth_title_list, auth_title[1])
+    if auth_title_list is None:
+        print(auth_title[0] + ' probably doesn\'t sing ' + auth_title[1])
+        exit(0)
 
     print(auth_title[0] + (' sings ' if judge_truth(auth_title_list, auth_title[0])
                            else ' probably doesn\'t sing ') + auth_title[1])

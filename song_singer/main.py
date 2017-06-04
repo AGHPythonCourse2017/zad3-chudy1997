@@ -31,9 +31,7 @@ def get_titles_from_addr(address):
         findAll('div').__str__()
 
     tmp1 = re.search(r'Znalezione([\w\W]*?)30.(.*)', re.sub(re.compile('<.*?>'), '', raw_html))
-    if tmp1 is None:
-        return None
-    tmp1=tmp1.group(0).split('\n')
+    tmp1 = tmp1.group(0).split('\n')
 
     tmp2 = []
     for t in tmp1[1:]:
@@ -57,7 +55,7 @@ def remove_wrong_titles(alist, title):
         if len(t) == 2 and t[1].lower() == title.lower():
             res.append(t)
 
-    return None if len(res)==0 else res
+    return res
 
 
 def judge_truth(alist, author):
@@ -74,19 +72,21 @@ def unicode(s, *_):
 
 def check(args):
     auth_title = parse_inquiry(args)
-    if auth_title==None:
-        exit(-1)
+    if auth_title is None:
+        return 0
     addr = "http://www.tekstowo.pl/szukaj,wykonawca," + auth_title[0].replace(' ', '+') + ",tytul," + auth_title[
         1].replace(' ', '+') + ".html"
 
     auth_title_list = get_titles_from_addr(addr)
-    if auth_title_list is None:
+    if not auth_title_list:
         print(auth_title[0] + ' probably doesn\'t sing ' + auth_title[1])
-        exit(0)
+        return 0
     auth_title_list = remove_wrong_titles(auth_title_list, auth_title[1])
-    if auth_title_list is None:
+    if not auth_title_list:
         print(auth_title[0] + ' probably doesn\'t sing ' + auth_title[1])
-        exit(0)
+        return 0
 
     print(auth_title[0] + (' sings ' if judge_truth(auth_title_list, auth_title[0])
                            else ' probably doesn\'t sing ') + auth_title[1])
+
+    return 0

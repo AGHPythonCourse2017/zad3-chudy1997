@@ -45,7 +45,7 @@ def test_get_titles_from_addr_pos():
 
         return tmp2
 
-    assert get_titles_from_addr_mock('') == []
+    assert get_titles_from_addr_mock('') != []
 
 
 def test_get_titles_from_addr_neg():
@@ -73,7 +73,7 @@ def test_get_titles_from_addr_neg():
 
         return tmp2
 
-    assert get_titles_from_addr('') != []
+    assert get_titles_from_addr('') == []
 
 
 def test_remove_wrong_titles():

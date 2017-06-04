@@ -3,13 +3,12 @@ from bs4 import BeautifulSoup
 from song_singer.ConnectionException import ConnectionException
 import re
 import sys
-import argparse
 
 
 def parse_inquiry(inq):
     res = str.split(inq, ':')
     if len(res) != 2:
-        print("Wrong input\nUsage: ./test Leonard Cohen : Hallelujah", file=sys.stderr)
+        print("Wrong input\nUsage: main.check('Leonard Cohen : Hallelujah')", file=sys.stderr)
         exit(-1)
     for i in range(len(res)):
         res[i] = res[i].strip(' ')
@@ -70,7 +69,7 @@ def unicode(s, *_):
     return s
 
 
-def fun(args):
+def check(args):
     auth_title = parse_inquiry(args)
     addr = "http://www.tekstowo.pl/szukaj,wykonawca," + auth_title[0].replace(' ', '+') + ",tytul," + auth_title[
         1].replace(' ', '+') + ".html"
@@ -80,22 +79,3 @@ def fun(args):
 
     print(auth_title[0] + (' sings ' if judge_truth(auth_title_list, auth_title[0])
                            else ' probably doesn\'t sing ') + auth_title[1])
-
-
-# if __name__ == '__main__':
-#     parser = argparse.ArgumentParser("main")
-#     parser.add_argument("sentence", nargs='+', type=lambda s: unicode(s, sys.getfilesystemencoding()),
-#                         help="Sentence to be checked for truth\nUsage: ./test Leonard Cohen : Hallelujah")
-#
-#     args=parser.parse_args().sentence
-#     arg = ' '.join(args)
-#
-#     auth_title = parse_inquiry(arg)
-#     addr = "http://www.tekstowo.pl/szukaj,wykonawca," + auth_title[0].replace(' ', '+') + ",tytul," + auth_title[
-#         1].replace(' ', '+') + ".html"
-#
-#     auth_title_list = get_titles_from_addr(addr)
-#     auth_title_list = remove_wrong_titles(auth_title_list, auth_title[1])
-#
-#     print(auth_title[0] + (' sings ' if judge_truth(auth_title_list, auth_title[0])
-#                            else ' probably doesn\'t sing ') + auth_title[1])

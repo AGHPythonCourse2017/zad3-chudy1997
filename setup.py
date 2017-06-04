@@ -10,7 +10,9 @@ setup(name='song_singer',
       license='Freeware',
       packages=['song_singer'],
       install_requires=[
-            'requests',
-            'bs4',
+          'requests',
+          'bs4',
+          're',
+          'sys'
       ],
       zip_safe=False)

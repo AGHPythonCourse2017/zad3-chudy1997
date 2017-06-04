@@ -9,4 +9,11 @@ setup(name='song_singer',
       author_email='karolbartyzel308@gmail.com',
       license='Freeware',
       packages=['song_singer'],
+      install_requires=[
+            'requests',
+            'BeautifulSoup',
+            're'
+            'sys',
+            'argparse',
+      ],
       zip_safe=False)

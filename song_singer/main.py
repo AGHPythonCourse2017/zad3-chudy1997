@@ -83,3 +83,6 @@ def check(args):
                            else ' probably doesn\'t sing ') + auth_title[1])
 
     return
+
+if __name__=='__main__':
+    check('Three Days Grace : Animal I have become')

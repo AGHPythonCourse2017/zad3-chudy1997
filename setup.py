@@ -12,5 +12,6 @@ setup(name='song_singer',
       install_requires=[
           'requests',
           'bs4',
+          'pytest',
       ],
       zip_safe=False)

@@ -12,7 +12,7 @@ setup(name='song_singer',
       install_requires=[
             'requests',
             'bs4',
-            're'
+            're',
             'sys',
             'argparse',
       ],

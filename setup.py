@@ -9,4 +9,8 @@ setup(name='song_singer',
       author_email='karolbartyzel308@gmail.com',
       license='Freeware',
       packages=['song_singer'],
+      install_requires=[
+            'requests',
+            'bs4',
+      ],
       zip_safe=False)

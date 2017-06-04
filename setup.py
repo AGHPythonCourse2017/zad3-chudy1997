@@ -8,5 +8,5 @@ setup(name='singer_song_truth',
       author='Karol Bartyzel',
       author_email='karolbartyzel308@gmail.com',
       license='Freeware',
-      packages=['singer_song_truth],
+      packages=['singer_song_truth'],
 zip_safe=False)

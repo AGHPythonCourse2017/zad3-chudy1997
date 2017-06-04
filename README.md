@@ -5,9 +5,9 @@ Instruction:
     pip install git+https://github.com/AGHPythonCourse2017/zad3-chudy1997.git
   2. Run python
   3. Import as follows:
-    from song_singer import main
+    from song_singer.main import check
   4. Run script as follows:
-    main.check('Some artist : Some song')* e.g. main.check('Leonard Cohen : Hallelujah')
+    check('Some artist : Some song')* e.g. check('Leonard Cohen : Hallelujah')
   
 
 *Dont miss ':' - it's part of syntax!!!

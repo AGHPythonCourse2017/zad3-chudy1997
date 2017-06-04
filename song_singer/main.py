@@ -8,12 +8,10 @@ import sys
 def parse_inquiry(inq):
     res = str.split(inq, ':')
     if len(res) != 2:
-        print("Wrong input\nUsage: main.check('Leonard Cohen : Hallelujah')", file=sys.stderr)
+        print("Wrong input\nUsage: main.check('Leonard Cohen : Hallelujah')",
+              file=sys.stderr)
         return None
-    for i in range(len(res)):
-        res[i] = res[i].strip(' ')
-
-    return res
+    return[elem.strip(' ') for elem in res]
 
 
 def safe_get(s):
@@ -21,8 +19,8 @@ def safe_get(s):
     r.encoding = 'utf-8'
 
     if r.status_code != 200:
-        pass
-        raise ConnectionException("Error while connecting to website '" + s + "'")
+        raise ConnectionException("Error while connecting to website '" +
+                                  s + "'")
     return r
 
 
@@ -30,14 +28,15 @@ def get_titles_from_addr(address):
     raw_html = BeautifulSoup(safe_get(address).text, 'html.parser'). \
         findAll('div').__str__()
 
-    tmp1 = re.search(r'Znalezione([\w\W]*?)30.(.*)', re.sub(re.compile('<.*?>'), '', raw_html))
+    tmp1 = re.search(r'Znalezione([\w\W]*?)30.(.*)',
+                     re.sub(re.compile('<.*?>'), '', raw_html))
     tmp1 = tmp1.group(0).split('\n')
 
     tmp2 = []
     for t in tmp1[1:]:
         if len(t) < 3:
             continue
-        if not t.strip().startswith(('0', '1', '2', '3', '4', '5', '6', '7', '8', '9')):
+        if not t.strip().startswith(tuple(str(i) for i in range(10))):
             break
         tmp2.append(t)
 
@@ -50,20 +49,15 @@ def get_titles_from_addr(address):
 
 
 def remove_wrong_titles(alist, title):
-    res = []
-    for t in alist:
-        if len(t) == 2 and t[1].lower() == title.lower():
-            res.append(t)
-
-    return res
+    return [elem for elem in alist if len(elem) == 2
+            if elem[1].lower() == title.lower()]
 
 
 def judge_truth(alist, author):
-    res = False
     for t in alist:
         if t[0].lower() == author.lower():
-            res = True
-    return res
+            return True
+    return False
 
 
 def unicode(s, *_):
@@ -74,19 +68,18 @@ def check(args):
     auth_title = parse_inquiry(args)
     if auth_title is None:
         return
-    addr = "http://www.tekstowo.pl/szukaj,wykonawca," + auth_title[0].replace(' ', '+') + ",tytul," + auth_title[
-        1].replace(' ', '+') + ".html"
+    addr = "http://www.tekstowo.pl/szukaj,wykonawca," + \
+           auth_title[0].replace(' ', '+') + ",tytul," + \
+           auth_title[1].replace(' ', '+') + ".html"
 
     auth_title_list = get_titles_from_addr(addr)
-    if not auth_title_list:
-        print(auth_title[0] + ' probably doesn\'t sing ' + auth_title[1])
-        return
     auth_title_list = remove_wrong_titles(auth_title_list, auth_title[1])
     if not auth_title_list:
         print(auth_title[0] + ' probably doesn\'t sing ' + auth_title[1])
         return
 
-    print(auth_title[0] + (' sings ' if judge_truth(auth_title_list, auth_title[0])
+    print(auth_title[0] + (' sings '
+                           if judge_truth(auth_title_list, auth_title[0])
                            else ' probably doesn\'t sing ') + auth_title[1])
 
     return

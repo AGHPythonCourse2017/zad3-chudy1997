@@ -70,11 +70,9 @@ def unicode(s, *_):
     return s
 
 
-def main():
-    parser = argparse.ArgumentParser("main")
-    parser.add_argument("sentence", nargs='+', type=lambda s: unicode(s, sys.getfilesystemencoding()),
-                        help="Sentence to be checked for truth\nUsage: ./test Leonard Cohen : Hallelujah")
-    arg = ' '.join(parser.parse_args().sentence)
+def main(args):
+    print(args)
+    arg = ' '.join(args)
 
     auth_title = parse_inquiry(arg)
     addr = "http://www.tekstowo.pl/szukaj,wykonawca," + auth_title[0].replace(' ', '+') + ",tytul," + auth_title[
@@ -83,9 +81,13 @@ def main():
     auth_title_list = get_titles_from_addr(addr)
     auth_title_list = remove_wrong_titles(auth_title_list, auth_title[1])
 
-    print(auth_title[0] + (' is the author of ' if judge_truth(auth_title_list, auth_title[0])
-                           else ' probably is not the author of ') + auth_title[1])
+    print(auth_title[0] + (' sings ' if judge_truth(auth_title_list, auth_title[0])
+                           else ' probably doesn\'t sing ') + auth_title[1])
 
 
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser("main")
+    parser.add_argument("sentence", nargs='+', type=lambda s: unicode(s, sys.getfilesystemencoding()),
+                        help="Sentence to be checked for truth\nUsage: ./test Leonard Cohen : Hallelujah")
+
+    main(parser.parse_args().sentence)

@@ -71,10 +71,7 @@ def unicode(s, *_):
 
 
 def fun(args):
-    print(args)
-    arg = ' '.join(args)
-
-    auth_title = parse_inquiry(arg)
+    auth_title = parse_inquiry(args)
     addr = "http://www.tekstowo.pl/szukaj,wykonawca," + auth_title[0].replace(' ', '+') + ",tytul," + auth_title[
         1].replace(' ', '+') + ".html"
 
@@ -85,9 +82,20 @@ def fun(args):
                            else ' probably doesn\'t sing ') + auth_title[1])
 
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser("main")
-    parser.add_argument("sentence", nargs='+', type=lambda s: unicode(s, sys.getfilesystemencoding()),
-                        help="Sentence to be checked for truth\nUsage: ./test Leonard Cohen : Hallelujah")
-
-    fun(parser.parse_args().sentence)
+# if __name__ == '__main__':
+#     parser = argparse.ArgumentParser("main")
+#     parser.add_argument("sentence", nargs='+', type=lambda s: unicode(s, sys.getfilesystemencoding()),
+#                         help="Sentence to be checked for truth\nUsage: ./test Leonard Cohen : Hallelujah")
+#
+#     args=parser.parse_args().sentence
+#     arg = ' '.join(args)
+#
+#     auth_title = parse_inquiry(arg)
+#     addr = "http://www.tekstowo.pl/szukaj,wykonawca," + auth_title[0].replace(' ', '+') + ",tytul," + auth_title[
+#         1].replace(' ', '+') + ".html"
+#
+#     auth_title_list = get_titles_from_addr(addr)
+#     auth_title_list = remove_wrong_titles(auth_title_list, auth_title[1])
+#
+#     print(auth_title[0] + (' sings ' if judge_truth(auth_title_list, auth_title[0])
+#                            else ' probably doesn\'t sing ') + auth_title[1])

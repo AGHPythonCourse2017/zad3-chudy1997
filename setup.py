@@ -1,12 +1,11 @@
 from setuptools import setup
 
-setup(name='complexity_estimate',
+setup(name='singer_song_truth',
       version='1.0',
-      description='Project allowing estimating complexity of algorythms '
-                  'using lists and time for given size and vice versa.',
-      url='https://github.com/AGHPythonCourse2017/zad2-chudy1997',
+      description='Project allowing checking if sentence about posessness of song is true.',
+      url='https://github.com/AGHPythonCourse2017/zad3-chudy1997',
       author='Karol Bartyzel',
       author_email='karolbartyzel308@gmail.com',
       license='Freeware',
-      packages=['complexity_estimate'],
+      packages=['singer_song_truth],
 zip_safe=False)

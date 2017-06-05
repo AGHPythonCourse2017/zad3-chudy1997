@@ -21,11 +21,11 @@ def safe_get(s):
     if r.status_code != 200:
         raise ConnectionException("Error while connecting to website '" +
                                   s + "'")
-    return r
+    return r.text
 
 
 def get_titles_from_addr(address):
-    raw_html = BeautifulSoup(safe_get(address).text, 'html.parser'). \
+    raw_html = BeautifulSoup(safe_get(address), 'html.parser'). \
         findAll('div').__str__()
 
     tmp1 = re.search(r'Znalezione([\w\W]*?)30.(.*)',

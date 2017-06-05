@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='song_singer',
-      version='1.0' ,
+      version='1.0',
       description='Project allowing checking if '
                   'sentence about posessness of song is true.',
       url='https://github.com/AGHPythonCourse2017/zad3-chudy1997',
@@ -13,5 +13,6 @@ setup(name='song_singer',
           'requests',
           'bs4',
           'pytest',
+          'mock',
       ],
       zip_safe=False)

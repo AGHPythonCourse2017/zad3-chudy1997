@@ -1,8 +1,10 @@
-import requests
-from bs4 import BeautifulSoup
-from song_singer.ConnectionException import ConnectionException
 import re
 import sys
+
+import requests
+from bs4 import BeautifulSoup
+
+from song_singer.ConnectionException import ConnectionException
 
 
 def parse_inquiry(inq):
@@ -11,7 +13,7 @@ def parse_inquiry(inq):
         print("Wrong input\nUsage: main.check('Leonard Cohen : Hallelujah')",
               file=sys.stderr)
         return None
-    return[elem.strip(' ') for elem in res]
+    return [elem.strip(' ') for elem in res]
 
 
 def safe_get(s):

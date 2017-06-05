@@ -33,7 +33,6 @@ def get_titles_from_addr(address):
     tmp1 = re.search(r'Znalezione([\w\W]*?)30.(.*)',
                      re.sub(re.compile('<.*?>'), '', raw_html))
     tmp1 = tmp1.group(0).split('\n')
-
     tmp2 = []
     for t in tmp1[1:]:
         if len(t) < 3:
@@ -43,10 +42,15 @@ def get_titles_from_addr(address):
         tmp2.append(t)
 
     for i in range(len(tmp2)):
-        tmp2[i] = tmp2[i].split('. ')[1].split(' - ')
+        tmp2[i] = ' '.join(tmp2[i].split('. ')[1:]).split(' - ')
         for j in range(len(tmp2[i])):
             tmp2[i][j] = tmp2[i][j].strip(' ')
-
+            ind = tmp2[i][1].lower().find('feat')
+            if ind != -1:
+                tmp2[i][0] = (tmp2[i][0] + tmp2[i][1][ind - 1:]). \
+                    replace('(', ' ').replace(')', ' ').strip()
+                tmp2[i][1] = tmp2[i][1][:ind - 1]. \
+                    replace('(', ' ').replace(')', ' ').strip()
     return tmp2
 
 

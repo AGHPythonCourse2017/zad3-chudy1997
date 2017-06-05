@@ -57,7 +57,7 @@ def remove_wrong_titles(alist, title):
 
 def judge_truth(alist, author):
     for t in alist:
-        if t[0].lower() == author.lower():
+        if author.lower() in t[0].lower():
             return True
     return False
 
